@@ -30,7 +30,7 @@ export default function Home() {
       });
     return checkQuery;
   };
- 
+
   const redirectIfInvalid = async () => {
     const exists = await checkListExists(listid);
     if (!exists) {
@@ -41,9 +41,7 @@ export default function Home() {
   const syncDB = async (listid) => {
     console.log("Establishing Stream With Database 💌");
 
-    const query = fql`todo.where(.id =
-    = ${listid}).toStream()`;
-    
+    const query = fql`todo.where(.id == ${listid}).toStream()`;
     client.stream(query).start(
       function onEvent(event) {
         switch (event.type) {
@@ -58,6 +56,7 @@ export default function Home() {
       }
     );
 
+    
   };
 
   const fetchData = (listid) => {
